@@ -1,0 +1,108 @@
+# Python
+*.py[cod]
+*$py.class
+__pycache__/
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Frappe specific
+*.pyc
+*.swp
+*.swo
+local_config.json
+site_config.json
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node.js
+node_modules/
+.npm
+.node_repl_history
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+
+# Database files
+*.sqlite
+*.db
+
+# Backups
+*.bak
+*.backup
+*.old
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Frappe site specific
+sites/*/private/backups/
+sites/*/private/files/
+sites/*/public/files/
+sites/common_site_config.json
+sites/.test_site
+
+# Temporary files
+*.~temp
+tmp/
+
+# Cache files
+.sass-cache/
+__pycache__/
+.cache/
+
+# Compiled JavaScript and CSS
+*.min.js
+*.min.css
