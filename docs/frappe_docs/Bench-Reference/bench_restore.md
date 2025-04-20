@@ -6,7 +6,14 @@
 ## Description
 Bench CLI can be used to restore an existing site to a previous state. Using the `bench restore` command, a site may be restored with the specific database and file restores. Downgrades aren't supported for Frappe Sites; when a downgrade is detected, an interactive prompt will pop up before the site restore begins.
 
-## Options
+The least requirement for performing a restore operation is having the database file on your local filesystem. The specified path may be relative to the bench or sites folder, although absolute paths often work best.
+
+The specified database backup file may have the `sql.gz` or `sql` extension. For public and private file backup archives, the default is `tar`, but since Version 13, compressed archives with the extension `tgz` are also supported.
+
+### Arguments
+- `SQL_FILE_PATH`: Path to the database source file. The path may be relative from the bench directory root, or the sites folder. It may also be an absolute path.
+
+### Options
 - `--db-root-username`: Root username for MariaDB or Postgres.
 - `--db-root-password`: Root password for MariaDB or Postgres.
 - `--db-name`: Database name for site in case it is a new one.
@@ -15,12 +22,27 @@ Bench CLI can be used to restore an existing site to a previous state. Using the
 - `--with-public-files`: Restores the public files of the site, given path to its archive file.
 - `--with-private-files`: Restores the private files of the site, given path to its archive file.
 
-## Examples
+### Flags
+- `--force`: Ignore the site downgrade warning, if applicable. This is not recommended unless you're fully aware of the consequences.
+
+### Examples
 1. Restore a site with files:
    ```
    bench --site {site} restore {path/to/database/file} --with-public-files {path/to/public/archive} --with-private-files {path/to/private/archive}
    ```
-2. Reset the admin password for the restored site:
+2. Bypass DBMS root interactive prompt by passing values in options:
+   ```
+   bench --site {site} restore {path/to/database/file} --db-root-username {db-user} --db-root-password {db-pass}
+   ```
+3. Specify new app to install after site restore:
+   ```
+   bench --site {site} restore {path/to/database/file} --install-app {app}
+   ```
+4. Specify custom database name for the restored site:
+   ```
+   bench --site {site} restore {path/to/database/file} --db-name {custom-db-name}
+   ```
+5. Reset the admin password for the restored site:
    ```
    bench --site {site} restore {path/to/database/file} --admin-password {admin-pass}
    ```

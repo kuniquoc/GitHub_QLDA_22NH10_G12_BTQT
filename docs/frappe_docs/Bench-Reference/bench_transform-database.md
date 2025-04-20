@@ -6,12 +6,14 @@
 ## Description
 The `transform-database` command allows you to manage the settings of your site's tables. At this point, you can switch engines and row_format settings for select tables on your site database.
 
-## Options
+MariaDB 10.6 deprecated the COMPRESSED ROW_FORMAT which was Frappe's default option for a very long time. This command was added to handle upgrades to later versions of MariaDB.
+
+### Options
 - `--table`: Comma-separated name of tables to convert. To convert all tables, pass 'all'.
 - `--engine`: Choice of storage engine for said table(s). Options available are `InnoDB` and `MyISAM`.
 - `--row_format`: Set `ROW_FORMAT` parameter for said table(s). Options available are `DYNAMIC`, `COMPACT`, `REDUNDANT`, `COMPRESSED`.
 
-## Examples
+### Examples
 1. Change the engine of a table to `MyISAM`:
    ```
    bench --site {site} transform-database --table 'tabAccess Record' --engine 'MyISAM'
