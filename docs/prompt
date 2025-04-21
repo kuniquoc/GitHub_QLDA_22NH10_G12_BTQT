@@ -1,2 +1,0 @@
-Generate a comprehensive table listing all file paths within the 'frappe_docs' directory. Each entry should include a 'File Path' and a 'Description' column. The descriptions must be clear, concise, and in English, detailing the purpose and content of each file to aid an AI agent in understanding and navigating to these files for code generation purposes. Format the output as a Markdown table. After generating the table, save it into a file named 'frappe_guide.md' for future reference and use.
-
