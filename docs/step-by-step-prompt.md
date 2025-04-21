@@ -6,25 +6,36 @@ Tài liệu này cung cấp các prompt chi tiết để hướng dẫn agent th
 
 ### Prompt 1.1: Cài đặt Frappe Framework
 ```prompt
-Tôi muốn bắt đầu dự án Autoblog bằng Frappe Framework. Hãy:
-1. Cài đặt tất cả các dependencies cần thiết cho Frappe Framework
-2. Cài đặt Bench tool để quản lý môi trường Frappe
-3. Kiểm tra phiên bản đã cài đặt
+Tôi muốn bắt đầu dự án Autoblog bằng Frappe Framework. Hãy thực hiện các bước sau:
 
-Yêu cầu hệ thống:
-- Hệ điều hành: Linux
-- Python 3.6 trở lên
-- Node.js và npm
-- Redis
-- MariaDB/MySQL
+1. Cài đặt tất cả các dependencies cần thiết cho Frappe Framework:
+   - Python 3.6 trở lên
+   - Node.js và npm
+   - Redis
+   - MariaDB/MySQL
+   - Git
+   - GCC và các thư viện cần thiết (libffi-dev, libssl-dev, etc.)
+   - Các công cụ hệ thống như curl, wget
 
-Sau khi cài đặt, tôi cần xác nhận rằng tất cả các thành phần đã được cài đặt đúng cách.
+2. Cài đặt Bench tool để quản lý môi trường Frappe:
+   - Cài đặt Bench bằng pip
+   - Thêm Bench vào biến môi trường
+   - Đảm bảo Bench hoạt động đúng với lệnh `bench --version`
+
+3. Kiểm tra phiên bản đã cài đặt:
+   - Python: `python3 --version`
+   - Node.js: `node --version`
+   - Redis: `redis-cli ping` (phản hồi "PONG")
+   - MariaDB/MySQL: `mysql --version`
+
+
+Sau khi cài đặt, tôi cần xác nhận rằng tất cả các thành phần đã được cài đặt đúng cách và không có lỗi.
 ```
 
 ### Prompt 1.2: Khởi tạo dự án
 ```prompt
 Đã cài đặt xong Frappe Framework và các dependencies. Bây giờ hãy:
-1. Khởi tạo một dự án mới tên là 'autoblog'
+1. Khởi tạo một dự án mới tên là 'autoblog' ngay trong thư mục hiện tại
 2. Tạo site mới với tên 'autoblog.local'
 3. Tạo ứng dụng Frappe mới tên là 'autoblog'
 4. Cài đặt ứng dụng vào site
@@ -34,66 +45,46 @@ Sau khi cài đặt, tôi cần xác nhận rằng tất cả các thành phần
 
 ## 2. Thiết kế cấu trúc dữ liệu
 
-### Prompt 2.1: Tạo Doctype Blog
-```prompt
+# Prompt 2.1: Tạo Doctype Blog
+
 Tôi cần tạo một Doctype mới cho Blog với các yêu cầu sau:
 
-Fields cần có:
-1. title (Data)
+## Yêu cầu về fields:
+1. **title (Data)**
    - Bắt buộc nhập
    - Độ dài: 5-150 ký tự
    - Đánh index
-2. content (Text Editor)
+2. **content (Text Editor)**
    - Rich text
    - Độ dài tối thiểu 10 ký tự
-3. author (Link)
-   - Link to: User doctype
+3. **author (Link)**
+   - Link to: BlogUser doctype
    - Bắt buộc nhập
-4. published_date (Date)
+4. **published_date (Date)**
    - Mặc định: ngày hiện tại
-5. is_published (Check)
+5. **is_published (Check)**
    - Mặc định: 0
-6. is_deleted (Check)
+6. **is_deleted (Check)**
    - Hỗ trợ soft delete
    - Mặc định: 0
 
-Cần thêm validation cho:
-- Độ dài tiêu đề
-- Độ dài nội dung
-- Kiểm tra author hợp lệ
+## Yêu cầu về permissions:
+- **Role: "System Manager"**
+  - Read: Yes
+  - Write: Yes
+  - Create: Yes
+  - Delete: Yes
+- **Role: "Blog Editor"**
+  - Read: Yes
+  - Write: Yes
+  - Create: Yes
+  - Delete: No -->
 
-Vui lòng tạo Doctype với các cấu hình trên và thêm các validation cần thiết.
-```
+Sau đó chạy lệnh bench --site autoblog.local migrate để đồng bộ tất cả các thay đổi về cấu trúc dữ liệu
 
 ## 3. Thiết kế API RESTful
 
-### Prompt 3.1: Cấu hình API cho User
-```prompt
-Cần thiết lập API endpoints cho quản lý User với các yêu cầu sau:
-
-1. GET /api/resource/User
-   - Lấy danh sách user
-   - Cần lọc theo trường enabled
-   - Giới hạn 20 kết quả mỗi trang
-   - Sắp xếp theo tên
-
-2. POST /api/resource/User
-   - Tạo user mới
-   - Validate email và password
-   - Tự động gán role cơ bản
-
-3. PUT /api/resource/User/{name}
-   - Cập nhật thông tin user
-   - Không cho phép thay đổi email
-
-4. DELETE /api/resource/User/{name}
-   - Xóa user
-   - Kiểm tra quyền trước khi xóa
-
-Hãy thực hiện cấu hình và kiểm tra các API endpoints này.
-```
-
-### Prompt 3.2: Cấu hình API cho Blog
+### Prompt 3.1: Cấu hình API cho Blog
 ```prompt
 Cần thiết lập API endpoints cho Blog với các yêu cầu sau:
 
@@ -106,7 +97,7 @@ Cần thiết lập API endpoints cho Blog với các yêu cầu sau:
 2. POST /api/resource/Blog
    - Tạo blog mới
    - Validate độ dài title và content
-   - Tự động gán author là user hiện tại
+   - Tự động gán author là blogUser hiện tại
 
 3. PUT /api/resource/Blog/{name}
    - Cập nhật blog
@@ -115,47 +106,12 @@ Cần thiết lập API endpoints cho Blog với các yêu cầu sau:
 4. Soft delete
    - Không xóa thật, chỉ đánh dấu is_deleted
 
-Hãy thực hiện cấu hình API và thêm các validation cần thiết.
+Hãy thực hiện cấu hình API và thêm các validation cần thiết, viết logs đầy đủ để sử dụng cho debug.
 ```
 
 ## 4. Tạo giao diện người dùng
 
-### Prompt 4.1: Thiết lập cấu trúc frontend
-```prompt
-Cần tạo cấu trúc thư mục và files cho phần frontend trong thư mục www của ứng dụng autoblog:
-
-Cấu trúc cần có:
-1. user_management.html
-2. blog_management.html
-3. style.css
-4. js/
-   - user.js
-   - blog.js
-
-Hãy tạo cấu trúc thư mục và các file trống với cấu trúc cơ bản.
-```
-
-### Prompt 4.2: Xây dựng giao diện quản lý User
-```prompt
-Cần xây dựng giao diện quản lý User với các yêu cầu sau:
-
-HTML (user_management.html):
-1. Tiêu đề trang
-2. Vùng hiển thị danh sách user
-3. Link đến CSS
-
-JavaScript (user.js):
-1. Hàm loadUsers(): tải và hiển thị danh sách
-2. Hàm deleteUser(): xác nhận và xóa user
-3. Xử lý lỗi và hiển thị thông báo
-4. Sử dụng CSRF token cho các request
-
-CSS đã có sẵn trong style.css
-
-Hãy tạo các file với code đầy đủ và đảm bảo hoạt động đúng.
-```
-
-### Prompt 4.3: Xây dựng giao diện quản lý Blog
+### Prompt 4.1: Xây dựng giao diện quản lý Blog
 ```prompt
 Cần xây dựng giao diện quản lý Blog với các yêu cầu sau:
 
@@ -165,7 +121,9 @@ HTML (blog_management.html):
    - Textarea cho nội dung
    - Nút submit
 2. Vùng hiển thị danh sách blog
-3. Link đến CSS và JS
+3. Nút xem, chỉnh sửa và xoá blog
+4. Khi nhấn nút xem, chỉnh sửa sẽ hiển thị ra một modal hiển thị thông tin blog (title, content) tuy nhiên chỉ khi nhấn nút chỉnh sửa mới cho thay đổi trưc tiếp và lưu, nếu xem thì không được thay đổi và lưu
+5. Link đến CSS và JS
 
 JavaScript (blog.js):
 1. Hàm loadBlogs(): tải và hiển thị danh sách
@@ -174,175 +132,39 @@ JavaScript (blog.js):
 4. Xử lý lỗi và thông báo
 5. Sử dụng CSRF token
 
+Sử dụng các api được tạo từ doctype blog
 Hãy tạo các file với code đầy đủ và đảm bảo hoạt động đúng.
 ```
 
-### Prompt 4.4: Tạo và tùy chỉnh CSS
+### Prompt 4.2: Tạo và tùy chỉnh CSS
 ```prompt
 Cần tạo file CSS chung cho toàn bộ ứng dụng với các yêu cầu sau:
 
 1. Thiết lập biến CSS cho:
-   - Màu sắc chính
-   - Màu danger
-   - Màu text
-   - Màu border
+   - Màu sắc chính (--primary-color: #007bff)
+   - Màu danger (--danger-color: #dc3545)
+   - Màu text (--text-color: #333)
+   - Màu border (--border-color: #ddd)
 
 2. Định dạng cho:
-   - Body và container
-   - Forms và inputs
-   - Buttons (primary và danger)
+   - Body: font-family Arial, margin 20px
+   - Forms: max-width 400px, centered
+   - Inputs: full width, padding, border radius
+   - Buttons: full width, color scheme, hover effects
+   - Links: color scheme, hover effects
    - Responsive design
 
-3. Media queries cho mobile:
-   - Điều chỉnh margin
+3. Các styles cụ thể cho:
+   - Form quản lý blog
+   - Danh sách blog
+   - Error messages
+
+4. Media queries cho mobile:
+   - Điều chỉnh margin (10px)
    - Full-width inputs
    - Stack buttons
-
-Hãy tạo file style.css với đầy đủ các styles cần thiết.
+   - Responsive padding
 ```
 
-## 5. Triển khai và kiểm thử
 
-### Prompt 5.1: Kiểm tra validation
-```prompt
-Cần kiểm tra tất cả các validation trong hệ thống:
 
-1. User validation:
-   - Email hợp lệ
-   - Mật khẩu đủ mạnh
-   - Tên không trống
-
-2. Blog validation:
-   - Tiêu đề 5-150 ký tự
-   - Nội dung ít nhất 10 ký tự
-   - Author hợp lệ
-
-Hãy thực hiện kiểm tra và đảm bảo tất cả validation hoạt động đúng.
-```
-
-### Prompt 5.2: Kiểm tra CRUD và phân quyền
-```prompt
-Cần kiểm tra đầy đủ các chức năng CRUD và phân quyền:
-
-1. Tạo dữ liệu test:
-   - 3 users với các role khác nhau
-   - 5 blog posts với các trạng thái khác nhau
-
-2. Kiểm tra quyền truy cập:
-   - Chỉ admin được quản lý users
-   - Author chỉ sửa được blog của mình
-   - Guest chỉ xem được blog đã publish
-
-3. Kiểm tra các chức năng:
-   - Thêm, sửa, xóa user
-   - Thêm, sửa, soft delete blog
-   - Phân trang và sắp xếp
-
-Hãy thực hiện các test case và báo cáo kết quả.
-```
-
-## 6. Bảo mật và tối ưu hóa
-
-### Prompt 6.1: Thiết lập bảo mật
-```prompt
-Cần thiết lập các biện pháp bảo mật cho hệ thống:
-
-1. API Security:
-   - Cấu hình CSRF protection
-   - Thiết lập rate limiting
-   - Tạo và quản lý API keys
-
-2. XSS Prevention:
-   - Thêm CSP headers
-   - Escape HTML trong rich text
-   - Sử dụng textContent thay vì innerHTML
-
-3. CORS:
-   - Cấu hình whitelist domains
-   - Thiết lập allow_cors
-
-Hãy thực hiện các cấu hình bảo mật và kiểm tra hiệu quả.
-```
-
-### Prompt 6.2: Tối ưu hiệu năng
-```prompt
-Cần thực hiện tối ưu hiệu năng cho hệ thống:
-
-1. Frontend:
-   - Minify CSS/JS
-   - Implement lazy loading
-   - Sử dụng document fragments
-   - Tối ưu event handlers
-
-2. Backend:
-   - Cấu hình Redis cache
-   - Tối ưu queries
-   - Implement connection pooling
-
-3. Database:
-   - Thêm indexes cho các trường tìm kiếm
-   - Tối ưu query plan
-   - Monitoring query performance
-
-Hãy thực hiện các tối ưu và đo lường hiệu quả.
-```
-
-## 7. Deployment
-
-### Prompt 7.1: Cấu hình Production
-```prompt
-Cần chuẩn bị hệ thống cho môi trường production:
-
-1. Web Server:
-   - Cài đặt và cấu hình Nginx
-   - Setup reverse proxy
-   - Cấu hình SSL với Let's Encrypt
-
-2. Environment:
-   - Tạo file cấu hình production
-   - Thiết lập biến môi trường
-   - Cấu hình logging
-
-3. Database:
-   - Backup strategy
-   - Monitoring
-   - Performance tuning
-
-Hãy thực hiện các bước cấu hình và kiểm tra môi trường production.
-```
-
-### Prompt 7.2: Monitoring và Backup
-```prompt
-Cần thiết lập hệ thống monitoring và backup:
-
-1. Logging:
-   - Cấu hình log rotation
-   - Error tracking
-   - Performance monitoring
-
-2. Backup:
-   - Lịch backup tự động
-   - Backup verification
-   - Restore testing
-
-3. Monitoring:
-   - Setup Prometheus + Grafana
-   - Cấu hình alerts
-   - Resource monitoring
-
-Hãy thực hiện cấu hình và kiểm tra hệ thống monitoring.
-```
-
-## Kết luận
-
-Mỗi prompt trên được thiết kế để:
-1. Cung cấp đầy đủ ngữ cảnh và yêu cầu
-2. Chỉ rõ các điều kiện cần và đủ
-3. Yêu cầu kiểm tra và xác nhận kết quả
-4. Đảm bảo tính tuần tự và liên kết giữa các bước
-
-Khi sử dụng các prompt này, hãy:
-1. Thực hiện tuần tự từng bước
-2. Đảm bảo hoàn thành và kiểm tra mỗi bước
-3. Lưu lại log và kết quả thực hiện
-4. Xử lý các lỗi nếu có trước khi chuyển sang bước tiếp theo
