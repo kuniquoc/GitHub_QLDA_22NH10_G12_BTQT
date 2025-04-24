@@ -1,8 +1,8 @@
 [
-    "tabNavbar Item",
-    "tabInstalled Application",
-    "tabVersion",
-    "tabSingles",
     "tabNavbar",
-    "tabInstalled"
+    "tabSingles",
+    "tabVersion",
+    "tabInstalled",
+    "tabNavbar Item",
+    "tabInstalled Application"
 ]

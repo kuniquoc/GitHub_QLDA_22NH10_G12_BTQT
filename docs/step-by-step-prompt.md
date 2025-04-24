@@ -125,15 +125,26 @@ HTML (blog_management.html):
 4. Khi nhấn nút xem, chỉnh sửa sẽ hiển thị ra một modal hiển thị thông tin blog (title, content) tuy nhiên chỉ khi nhấn nút chỉnh sửa mới cho thay đổi trưc tiếp và lưu, nếu xem thì không được thay đổi và lưu
 5. Link đến CSS và JS
 
-JavaScript (blog.js):
-1. Hàm loadBlogs(): tải và hiển thị danh sách
-2. Hàm setupForm(): xử lý submit form
-3. Validation dữ liệu trước khi gửi
-4. Xử lý lỗi và thông báo
-5. Sử dụng CSRF token
 
-Sử dụng các api được tạo từ doctype blog
+Sử dụng doctype blog
 Hãy tạo các file với code đầy đủ và đảm bảo hoạt động đúng.
+```
+
+```prompt
+Cần xây dựng một custom page quản lý Blog với các yêu cầu sau: 
+
+Ở trang blog_management, sẽ hiển thị danh sách các blog với title và author, cùng với đó là nút tạo blog mởi ở trên bảng, nút xem, sửa, xoá, publish ở từng blog trong danh sách hiển thị với các chức năng như sau:
+
+- Khi nhấn vào nút tạo blog, thì sẽ chuyển đến trang create_blog có:
+   - Input cho tiêu đề
+   - Textarea cho nội dung
+   - Nút submit
+- Khi nhấn vào nút xem, chỉnh sửa thì sẽ chuyển tới trang blog_detail, nhưng nếu nhấn xem thì không được thay đổi thông tin, nếu nhấn sửa thì được phép chỉnh sửa và lưu lại
+- Khi nhấn nút xoá thì sẽ hiển thị thông báo xác nhận, nếu xác nhận thì xoá
+
+Sử dụng doctype blog, cùng với đó là xem hướng dẫn tạo trang trong create_page_guide.md
+Hãy tạo các file với code đầy đủ và đảm bảo hoạt động đúng.
+
 ```
 
 ### Prompt 4.2: Tạo và tùy chỉnh CSS
