@@ -1,4 +1,5 @@
-# GitHub_QLDA_22NH10_G12_BTQT# 📘 S-Blog
+# GitHub_QLDA_22NH10_G12_BTQT
+# 📘 S-Blog
 
 **S-Blog** is a personal blogging platform built entirely with **React**. Each user becomes their own **blogger** within the site — they can create, edit, delete posts, explore content from others, follow users, and share blog posts to social media.
 
