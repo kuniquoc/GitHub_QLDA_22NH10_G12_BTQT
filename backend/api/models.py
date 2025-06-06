@@ -1,6 +1,6 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.hashers import make_password
+from django.db import models # type: ignore
+from django.contrib.auth.models import AbstractUser # type: ignore
+from django.contrib.auth.hashers import make_password # type: ignore
 
 # Người dùng
 class User(AbstractUser):

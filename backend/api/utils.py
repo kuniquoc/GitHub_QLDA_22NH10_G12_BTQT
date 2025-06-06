@@ -1,5 +1,5 @@
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.response import Response# type: ignore
+from rest_framework import status# type: ignore
 from .constants import ResponseMessage, EntityNames
 
 class CustomResponse(Response):

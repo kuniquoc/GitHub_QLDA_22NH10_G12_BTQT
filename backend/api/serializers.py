@@ -1,13 +1,13 @@
-from rest_framework import serializers
-from django.contrib.auth import get_user_model, authenticate
-from .models import SocialMediaLink, Category, Post, Comment, CommentLike, PostLike, UserFollower
-from django.contrib.auth.hashers import make_password
-from rest_framework.validators import UniqueValidator
-from django.db.models import Q
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes, OpenApiResponse
-from rest_framework import status
+from rest_framework import serializers # type: ignore
+from django.contrib.auth import get_user_model, authenticate# type: ignore
+from .models import SocialMediaLink, Category, Post, Comment, CommentLike, PostLike, UserFollower# type: ignore
+from django.contrib.auth.hashers import make_password# type: ignore
+from rest_framework.validators import UniqueValidator# type: ignore
+from django.db.models import Q# type: ignore
+from rest_framework.views import APIView# type: ignore
+from rest_framework.permissions import AllowAny# type: ignore
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes, OpenApiResponse # type: ignore
+from rest_framework import status# type: ignore
 
 User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):

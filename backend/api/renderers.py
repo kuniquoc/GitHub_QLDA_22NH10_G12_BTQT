@@ -1,4 +1,4 @@
-from rest_framework import renderers
+from rest_framework import renderers # type: ignore
 
 class StandardJSONRenderer(renderers.JSONRenderer):
     media_type = 'application/json'

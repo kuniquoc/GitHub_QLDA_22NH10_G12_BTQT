@@ -1,15 +1,15 @@
-from django.shortcuts import render
-from rest_framework import viewsets, status, permissions 
-from rest_framework.permissions import IsAuthenticated, AllowAny  # Thêm AllowAny vào đây
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from django.core.paginator import Paginator
-from django.contrib.auth import get_user_model, authenticate
-from django.db.models import Q, Count
-from drf_yasg.utils import swagger_auto_schema
-from rest_framework.decorators import permission_classes
-from drf_yasg import openapi
+from django.shortcuts import render# type: ignore
+from rest_framework import viewsets, status, permissions # type: ignore
+from rest_framework.permissions import IsAuthenticated, AllowAny  # Thêm AllowAny vào đây # type: ignore
+from rest_framework.decorators import action# type: ignore
+from rest_framework.response import Response# type: ignore
+from django.shortcuts import get_object_or_404# type: ignore
+from django.core.paginator import Paginator# type: ignore
+from django.contrib.auth import get_user_model, authenticate# type: ignore
+from django.db.models import Q, Count# type: ignore
+from drf_yasg.utils import swagger_auto_schema# type: ignore
+from rest_framework.decorators import permission_classes# type: ignore
+from drf_yasg import openapi# type: ignore
 from .renderers import StandardJSONRenderer
 from .models import SocialMediaLink, Category, Post, Comment, CommentLike, PostLike, UserFollower
 from .serializers import ( ChangePasswordSerializer,
@@ -18,8 +18,8 @@ from .serializers import ( ChangePasswordSerializer,
     UserDetailSerializer, UserUpdateSerializer, RegisterSerializer, LoginResponseSerializer,
     PostPaginationSerializer, ImageUploadSerializer, RefreshTokenSerializer 
 )
-from drf_spectacular.utils import OpenApiResponse, OpenApiParameter, OpenApiRequest
-from drf_spectacular.utils import OpenApiTypes, OpenApiExample
+from drf_spectacular.utils import OpenApiResponse, OpenApiParameter, OpenApiRequest# type: ignore
+from drf_spectacular.utils import OpenApiTypes, OpenApiExample# type: ignore
 from .utils import (
     create_response, create_success_response, create_validation_error_response,
     create_not_found_response, create_created_response, CustomResponse
